@@ -94,16 +94,73 @@ bool CanMessage::isMessageValid()
     return false;
 }
 
+/////////////////// FORMAT TRAME CAN ///////////////////////////
+            //  ID // FORMAT // TYPE // DLC // DATAAAAAAAAAA //
+
+
 //step 7
-// std::string CanMessage::toString()
-// {
-//     //std::string chain_carac[]= {};
-//     //"STANDARD","DATA","oA5","2","4266", "TRUE"};
-//     //format 
-//     //type
-//     //id 3 std ou 8 ext 
-//     //dlc value
-//     //data si dlc = 0 ou REMOTE alors empty
-//     //validity 
-//     return a;
-// }
+std::string CanMessage::toString()
+{
+    //format 
+    std::string format = " NOK";
+    if (getFormat() == CanMessage::canFormat::STANDARD)
+    {
+        format = "STD";
+    }
+    else 
+    {
+        format = "EXT";
+    }
+    
+    //"STANDARD","DATA","oA5","2","4266", "TRUE"};
+
+    //type
+    std::string type;
+    if (getType() == CanMessage::canType::REMOTE)
+    {
+        type = "RMT";
+    }
+    else 
+    {
+        type = "DATA";
+    }
+    
+    //id 3 std ou 8 ext 
+    std::string idstring;
+    if(getFormat() == CanMessage::canFormat::STANDARD) 
+    {
+        idstring = "3";
+    }
+    else
+    {
+        idstring = "8";
+    }
+
+    //validity 
+    std::string validate;
+    if( isMessageValid() == true)
+    {
+        validate = "true";
+    }
+    else
+    {
+        validate = "false";
+    }
+    
+    
+    //dlc value
+    //data si dlc = 0 ou REMOTE alors empty
+    std::string dlcstring;
+    if((getDlc() == 0) || (getType() == CanMessage::canType::REMOTE) )
+    {
+        dlcstring = "empty";
+        std::cout << "Trame : " << format << "," << idstring << ","<< type <<","<< static_cast<int>(this->getDlc()) << ","<< dlcstring << std::endl;
+    }
+    else
+    {
+        std::cout << "Trame : " << format << "," << idstring << ","<< type <<","<< static_cast<int>(this->getDlc()) << "," << std::endl;
+    }
+    
+    return validate;
+}
+
