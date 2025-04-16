@@ -77,6 +77,20 @@ int main() {
     //std::array<uint8_t, MAX_DLC> data = constructeur1.Data();
 	std::cout << "Fin des tests OK" << std::endl;
 
+    //identifier les cas problematiques pour isValid
+    
+    //cas nominal 
+	//STD, DATA ID 11 DLC 2 , data=4266
+
+
+    //cas d'erreur 
+      //DATA mais type = REMOTE
+    
+    //cas aux limites
+	//si DLC =9 
+	//ID different de 11 ou 29
+	
+
 	return 0;
 }
 #endif

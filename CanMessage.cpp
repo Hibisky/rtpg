@@ -70,12 +70,13 @@ CanMessage::CanMessage (uint32_t id, CanMessage::canType type ,CanMessage::canFo
 
 bool CanMessage::isMessageValid()
 {
-    if(getFormat() == canFormat::STANDARD)
+    //Id a un champ variable qui conditionnne ca valeur max 
+    //2^11 valeur max id 
+    if((getFormat() == canFormat::STANDARD) && (getId() == 11))
     {
-        if(getId() == 11)
-        {
-            return true; 
-        }
+        //if(getId() == 11){
+        return true; 
+        //}*/
     }
     else /*(getFormat() == canFormat::ETENDU)*/
     {
@@ -97,21 +98,26 @@ bool CanMessage::isMessageValid()
     } 
     
     //champ de données (data) entre o et 8 octets
-
+    //identifier les cas problematique 
+    
+    //voir les can message
+    //cas nominal cas d'erreur 
+    
+    //cas aux limites
     return false;
 }
 
 //step 7
 std::string CanMessage::toString()
 {
-    std::string chain_carac[6] = {"STANDARD","DATA","oA5","2","4266", "TRUE"};
+    //"STANDARD","DATA","oA5","2","4266", "TRUE"};
     //format 
     //type
     //id 3 std ou 8 ext 
     //dlc value
     //data si dlc = 0 ou REMOTE alors empty
     //validity 
-    return chain_carac[];
+    //return chain_carac[];
 }
 
 
