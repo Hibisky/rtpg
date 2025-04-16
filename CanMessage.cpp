@@ -72,38 +72,41 @@ bool CanMessage::isMessageValid()
 {
     //Id a un champ variable qui conditionnne ca valeur max 
     //2^11 valeur max id 
-    if((getFormat() == canFormat::STANDARD) && (getId() == 11))
-    {
-        //if(getId() == 11){
-        return true; 
-        //}*/
-    }
-    else /*(getFormat() == canFormat::ETENDU)*/
-    {
-        if(getId() == 29)
-        {
-          return true;   
-        }
-    }
+    //Soit la trame get Format = std et ID == 2^11 
+    //Soit la trame get Format = ext et ID == 2^29
+
+    //Soit la trame get Type = Rmt et DLC == 0
+    //Soit la trame get Type = Data et DLC entre 0 et 8
+
+    odre de la trame ?
+    ///// ID // FORMAT // TYPE // DLC // DATAAAAA
+    //dlc c'est la taille de la data 
+    
+    // if((getFormat() == canFormat::STANDARD) && (getId() == 11))
+    // {
+    //     //if(getId() == 11){
+    //     return true; 
+    //     //}*/
+    // }
+    // else /*(getFormat() == canFormat::ETENDU)*/
+    // {
+    //     if(getId() == 29)
+    //     {
+    //       return true;   
+    //     }
+    // }
 
     
-    if(( getDlc()>=0) && (getDlc() <=8)) 
-    {
-        if(getType()==canType::DATA)
-        {
-            //nb octets donnée de trame
-            return true;
-        }
-        //nb octets attendu en retour dans le cas trame REMOTE
-    } 
+    // if(( getDlc()>=0) && (getDlc() <=8)) 
+    // {
+    //     if(getType()==canType::DATA)
+    //     {
+    //         //nb octets donnée de trame
+    //         return true;
+    //     }
+    //     //nb octets attendu en retour dans le cas trame REMOTE
+    // } 
     
-    //champ de données (data) entre o et 8 octets
-    //identifier les cas problematique 
-    
-    //voir les can message
-    //cas nominal cas d'erreur 
-    
-    //cas aux limites
     return false;
 }
 
