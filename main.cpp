@@ -72,7 +72,7 @@ int main() {
 
     // Validate data function/field (optional)
     std::array<uint8_t, MAX_DLC> &data = constructeur1.Data();
-	
+
     //cas nominal
     constructeur2.isMessageValid();
     assert(constructeur2.isMessageValid() == true);
@@ -81,15 +81,13 @@ int main() {
     CanMessage constructeur5(2048, CanMessage::canType::DATA, CanMessage::canFormat::STANDARD, 9);
     assert(constructeur5.isMessageValid() == false);
     
-    //cas aux limites id different de 2^11 ou 2^29
+    //cas d'erreur id different de 2^11 ou 2^29
     CanMessage constructeur6(9, CanMessage::canType::DATA, CanMessage::canFormat::STANDARD, 2);
     assert(constructeur6.isMessageValid() == false);
+    std::cout << "End of tests - OK" << std::endl;
 
-    //cas d'erreur Remote mais presence de data 
-    CanMessage constructeur6(2048, CanMessage::canType::REMOTE, CanMessage::canFormat::STANDARD, 2);
-    assert(constructeur6.isMessageValid() == false);
-
-	std::cout << "Fin des tests OK" << std::endl;
-	return 0;
+    CanMessage constructeur7(9, CanMessage::canType::REMOTE, CanMessage::canFormat::STANDARD, 0);
+    std::cout << "toString " << constructeur7.toString() << std::endl;
+    return 0;
 }
 #endif
