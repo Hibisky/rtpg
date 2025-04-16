@@ -62,91 +62,48 @@ CanMessage::CanMessage (uint32_t id, CanMessage::canType type ,CanMessage::canFo
 {
 }
 
-/*std::array<uint8_t, MAX_DLC> CanMessage::Data()
+std::array<uint8_t, MAX_DLC>& CanMessage::Data()
 {
 // return une ref sur le champ _Data de l'objt
     return _Data;
-}*/
+}
 
 bool CanMessage::isMessageValid()
-{
+ {
+    uint32_t MAX_ID_11;
+    MAX_ID_11 = pow(2, 11);
+    uint32_t MAX_ID_29;
+    MAX_ID_29 = pow(2, 29);
+
     //Id a un champ variable qui conditionnne ca valeur max 
     //2^11 valeur max id 
-    //Soit la trame get Format = std et ID == 2^11 
-    //Soit la trame get Format = ext et ID == 2^29
 
-    //Soit la trame get Type = Rmt et DLC == 0
-    //Soit la trame get Type = Data et DLC entre 0 et 8
-
-    odre de la trame ?
-    ///// ID // FORMAT // TYPE // DLC // DATAAAAA
-    //dlc c'est la taille de la data 
+    //Soit le format est SDT et l'ID est 2^11 
+    //Soit le format est ETD et l'ID est 2^29
     
-    // if((getFormat() == canFormat::STANDARD) && (getId() == 11))
-    // {
-    //     //if(getId() == 11){
-    //     return true; 
-    //     //}*/
-    // }
-    // else /*(getFormat() == canFormat::ETENDU)*/
-    // {
-    //     if(getId() == 29)
-    //     {
-    //       return true;   
-    //     }
-    // }
-
-    
-    // if(( getDlc()>=0) && (getDlc() <=8)) 
-    // {
-    //     if(getType()==canType::DATA)
-    //     {
-    //         //nb octets donnée de trame
-    //         return true;
-    //     }
-    //     //nb octets attendu en retour dans le cas trame REMOTE
-    // } 
-    
+    if(((getFormat() == canFormat::STANDARD) && (getId() == MAX_ID_11)) || ((getFormat() == canFormat::ETENDU) &&(getId() == MAX_ID_29)))
+    {
+        //Soit le TYPE est Remote et on verifie que le dlc est a 0 => pas de DATA 
+        //Soit le type est DATA et on verifie que le dlc est bien compris entre 0 et 8 
+        //nb octets attendu en retour dans le cas trame REMOTE
+        if(((getType() == canType::REMOTE) && (getDlc() == 0)) || ((getType() == canType::DATA) && ((getDlc() >0) && (getDlc() <= 8 ))))
+        {
+            return true ;
+        }
+    }
     return false;
 }
 
 //step 7
-std::string CanMessage::toString()
-{
-    //"STANDARD","DATA","oA5","2","4266", "TRUE"};
-    //format 
-    //type
-    //id 3 std ou 8 ext 
-    //dlc value
-    //data si dlc = 0 ou REMOTE alors empty
-    //validity 
-    //return chain_carac[];
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // if(getId() ==11)
-    // {
-    //     this->format = canFormat::STANDARD;
-    // }
-    // if ((getId() == 29))
-    // {
-    //     this->format = canFormat::ETENDU;
-    // }
+// std::string CanMessage::toString()
+// {
+//     //std::string chain_carac[]= {};
+//     //"STANDARD","DATA","oA5","2","4266", "TRUE"};
+//     //format 
+//     //type
+//     //id 3 std ou 8 ext 
+//     //dlc value
+//     //data si dlc = 0 ou REMOTE alors empty
+//     //validity 
+//     return a;
+// }
