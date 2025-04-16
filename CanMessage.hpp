@@ -57,7 +57,8 @@ class CanMessage
     
     CanMessage& operator=(const CanMessage&) = default;
     CanMessage& operator=(CanMessage&&) = default;
-    
+
+    std::array<uint8_t, MAX_DLC>& Data();
     bool isMessageValid();
     std::string toString();
     
