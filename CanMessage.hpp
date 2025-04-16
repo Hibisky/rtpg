@@ -47,13 +47,26 @@ class CanMessage
 
     canType getType(){ return this->type;};
     void setType(canType type)  noexcept ;
+    
+    CanMessage(uint32_t id, CanMessage::canType type ,CanMessage::canFormat format, uint8_t dlc);
+    CanMessage(uint32_t id, CanMessage::canType type ,CanMessage::canFormat format);
+    CanMessage(CanMessage::canType type ,CanMessage::canFormat format);
 
-
-private:
+    CanMessage(const CanMessage&) = default;
+    CanMessage(CanMessage&& )= default;
+    
+    CanMessage& operator=(const CanMessage&) = default;
+    CanMessage& operator=(CanMessage&&) = default;
+    
+    bool isMessageValid();
+    std::string toString();
+    
     canFormat format{canFormat::STANDARD};
     canType type{canType::DATA};
     uint32_t id = 0 ;
     uint8_t dlc = 0 ;
+    
+private:
     std::array<uint8_t, MAX_DLC>  _Data;
 
 
