@@ -101,6 +101,7 @@ bool CanMessage::isMessageValid()
 //step 7
 std::string CanMessage::toString()
 {
+    std::string res;
     //format 
     std::string format = " NOK";
     if (getFormat() == CanMessage::canFormat::STANDARD)
@@ -154,13 +155,13 @@ std::string CanMessage::toString()
     if((getDlc() == 0) || (getType() == CanMessage::canType::REMOTE) )
     {
         dlcstring = "empty";
-        std::cout << "Trame : " << format << "," << idstring << ","<< type <<","<< static_cast<int>(this->getDlc()) << ","<< dlcstring << std::endl;
+        res= format + ","+ type +","+ idstring +","+ std::to_string(static_cast<int>(this->getDlc()))+","+dlcstring +","+ validate;
     }
     else
     {
-        std::cout << "Trame : " << format << "," << idstring << ","<< type <<","<< static_cast<int>(this->getDlc()) << "," << std::endl;
+        dlcstring = ;
+        res= format + ","+ type +","+ idstring +","+ std::to_string(static_cast<int>(this->getDlc()))+","+dlcstring +","+ validate;
     }
     
-    return validate;
+    return res;
 }
-
